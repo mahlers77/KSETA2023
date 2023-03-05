@@ -1,12 +1,12 @@
 #
-#  This file is part of CRAPy
+#  This file is part of CRAToPy
 #
-#  CRAPy is free software; you can redistribute it and/or modify
+#  CRAToPy is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2 of the License, or
 #  (at your option) any later version.
 #
-#  CRAPy is distributed in the hope that it will be useful,
+#  CRAToPy is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
@@ -18,7 +18,7 @@
 #  For more information about Healpy, see http://code.google.com/p/healpy
 #
 """
-CRAPy is a package to extract, analyse and simulate cosmic ray anisotropies. It is applicable for TeV-ZeV data collected by ground-based cosmic ray observatories. 
+Cosmic Ray Anisotropy Tools in Python - CRAToPy - is a package to extract, analyse and simulate cosmic ray anisotropies. It is applicable for TeV-ZeV data collected by ground-based cosmic ray observatories. 
 """
 
 import warnings
