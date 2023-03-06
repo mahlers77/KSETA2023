@@ -18,6 +18,10 @@ If you do not have a local version of python you can try Google Colaboratory:
 
 https://colab.research.google.com
 
+You can open the python notebooks directly from this github page: 
+
+https://github.com/mahlers77/KSETA2023
+
 If you start a new python notebook on Google Colaboratory use:
 
 "GoogleColaboratory = True"
