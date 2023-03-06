@@ -1,10 +1,10 @@
 # KSETA Topical Course "Multi-Messenger Data Analysis"
 
-This is a series of jupyter notebooks and data for the KSETA Topical Courses 2023.
+This is a repository of ipython notebooks, data and python modules for the KSETA Topical Courses 2023.
 
 ## Requirements
 
-The following libraries are required for all of them to work correctly.
+The following libraries are required for all of them to work correctly:
 
 - numpy
 - matplotlib
