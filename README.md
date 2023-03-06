@@ -26,18 +26,19 @@ at the beginning of your document. This should set up the correct environment an
 
 ## Example Notebooks
 
-- max_LH_example.ipynb (maximum likelihood test statistic)
+1) max_LH_example.ipynb (maximum likelihood test statistic)
 
-- KS_example.ipynb (Kolmogorov-Smirnov test)
+2) KS_example.ipynb (Kolmogorov-Smirnov test)
 
-- autocorrelation_example.ipynb (auto-correlation study of event distributions on a sphere)
+3) IceCube_allsky.ipynb (all-sky point-source analysis of public IceCube data covering 2008-2018)
 
-- powerspectrum_example.ipynb (power spectrum analysis of spherical harmonics expansion)
+4) autocorrelation_example.ipynb (auto-correlation study of event distributions on a sphere)
 
-- dipole_power_example.ipynb (dipole power for CR anisotropy studies)
+5) dipole_power_example.ipynb (dipole power for CR anisotropy studies)
 
-- Auger_anisotropy_2017.ipynb (all-scale anisotropy analysis of public Auger data from 2017)
+6) powerspectrum_example.ipynb (power spectrum analysis of spherical harmonics expansion)
 
-- Auger_EastWest_2017.ipynb (Auger dipole analysis using East-West method)
+7) Auger_anisotropy_2017.ipynb (all-scale anisotropy analysis of public Auger data from 2017)
 
-- IceCube_allsky.ipynb (all-sky point-source analysis of public IceCube data covering 2008-2018)
+8) Auger_EastWest_2017.ipynb (Auger dipole analysis using East-West method)
+
