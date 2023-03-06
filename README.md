@@ -38,4 +38,6 @@ at the beginning of your document. This should set up the correct environment an
 
 - Auger_anisotropy_2017.ipynb (all-scale anisotropy analysis of public Auger data from 2017)
 
+- Auger_EastWest_2017.ipynb (Auger dipole analysis using East-West method)
+
 - IceCube_allsky.ipynb (all-sky point-source analysis of public IceCube data covering 2008-2018)
