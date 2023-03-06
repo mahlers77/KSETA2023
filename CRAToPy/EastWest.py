@@ -2,6 +2,8 @@ import healpy as H
 import numpy as np
 import scipy.optimize
 
+from CRAToPy.coordinates import Lambert_pix2ang
+
 __all__ = [
 	"EWderivative",
 	"EWdipole",
@@ -105,9 +107,4 @@ def EWdipole(nbins,EW,dEW,nmax=1) :
 		Amp = -Amp
 		phi = (phi + 180.0) % 360.0
 		
-	
-	#print('chi2 = ',mychi2temp)
-	#print('A = ',result[0][0],np.sqrt(result[1][0][0]))
-	#print('phi = ',(result[0][1])/2./np.pi*360,(np.sqrt(result[1][1][1]))/2./np.pi*360)
-	
 	return Amp,dAmp,phi,dphi
