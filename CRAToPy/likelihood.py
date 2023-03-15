@@ -294,8 +294,8 @@ class INA_Lambert :
 			pixlistEQ2LC = self.EQ.EQ2LC(timeidx)
 		
 			if fit0 is None :
-				mu0[pixlistEQ] += self.I0[pixlistEQ]*self.A0[pixlistEQ2LC]*self.N0[timeidx]
-				#mu0[pixlistEQ] += self.I0[pixlistEQ]*self.A[pixlistEQ2LC]*self.N[timeidx]
+				#mu0[pixlistEQ] += self.I0[pixlistEQ]*self.A0[pixlistEQ2LC]*self.N0[timeidx] # achtung
+				mu0[pixlistEQ] += self.I0[pixlistEQ]*self.A[pixlistEQ2LC]*self.N[timeidx] 
 			else :
 				mu0[pixlistEQ] += fit0.I[pixlistEQ]*fit0.A[pixlistEQ2LC]*fit0.N[timeidx]
 				
@@ -753,16 +753,26 @@ def extract_dipole(CRmap,fit,niteration,chi2flag=True) :
 			
 	Amp = np.sqrt(delta0h**2 + delta6h**2)	
 	
+	phase = (np.arctan2(delta6h,delta0h)/np.pi*180.0 + 360.0) % 360.0
+	
 	ddelta0h,ddelta6h = dipole_sigma(CRmap,fit,delta0h,delta6h) 
 		
 	dAmp= np.sqrt(delta0h**2/Amp**2*ddelta0h**2 + delta6h**2/Amp**2*ddelta6h**2)
 
-	phase = (np.arctan2(delta6h,delta0h)/np.pi*180.0 + 360.0) % 360.0
+	dphase = np.sqrt(ddelta0h**2*delta6h**2 + ddelta6h**2*delta0h**2)/Amp**2/np.pi*180.
+	
+	#Amp = np.sqrt(delta0h**2 + delta6h**2)	
+	
+	#ddelta0h,ddelta6h = dipole_sigma(CRmap,fit,delta0h,delta6h) 
+		
+	#dAmp= np.sqrt(delta0h**2/Amp**2*ddelta0h**2 + delta6h**2/Amp**2*ddelta6h**2)
+
+	#phase = (np.arctan2(delta6h,delta0h)/np.pi*180.0 + 360.0) % 360.0
 	
 	if chi2flag == True :
-		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase, np.array(chi2list)
+		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase,dphase,np.array(chi2list)
 	else :
-		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase
+		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase,dphase
 
 def extract_dipole_Lambert(CRmap,fit,niteration,chi2flag=True) :
 	
@@ -786,18 +796,20 @@ def extract_dipole_Lambert(CRmap,fit,niteration,chi2flag=True) :
 			
 	Amp = np.sqrt(delta0h**2 + delta6h**2)	
 	
+	phase = (np.arctan2(delta6h,delta0h)/np.pi*180.0 + 360.0) % 360.0
+	
 	ddelta0h,ddelta6h = dipole_sigma_Lambert(CRmap,fit,delta0h,delta6h) 
 		
 	dAmp= np.sqrt(delta0h**2/Amp**2*ddelta0h**2 + delta6h**2/Amp**2*ddelta6h**2)
 
-	phase = (np.arctan2(delta6h,delta0h)/np.pi*180.0 + 360.0) % 360.0
+	dphase = np.sqrt(ddelta0h**2*delta6h**2 + ddelta6h**2*delta0h**2)/Amp**2/np.pi*180.
 	
 	#return delta0h,delta6h,Amp,phase
 	
 	if chi2flag == True :
-		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase, np.array(chi2list)
+		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase,dphase,np.array(chi2list)
 	else :
-		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase
+		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase,dphase
 		
 def dipole_sigma(CRmap,fit,delta0h,delta6h) :
 
