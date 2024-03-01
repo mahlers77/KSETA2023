@@ -47,6 +47,7 @@ from .likelihood import (
 from .EastWest import (
 	EWderivative,
 	EWdipole,
+	EWderivative_Lambert,
 )
 
 from .datatools import (
