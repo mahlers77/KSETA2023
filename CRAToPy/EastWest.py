@@ -92,35 +92,39 @@ def EWderivative_Lambert(ndec,nbins,CRmap) :
 	ntimes = 2*ndec
 	pixlist = np.arange(0,npix)
 
-	if not (ntimes % nbins) == 0 :
-		print("Error: Parameter nbins need to be a divisor of ntimes.")
+	#if not (ntimes % nbins) == 0 :
+	#	print("Error: Parameter nbins need to be a divisor of ntimes.")
+	#	exit(3)
+	
+	if not (ntimes == nbins):
+		print("Error: No rebinning implmented yet. Use bins = 2*ndec.")
 		exit(3)
 		
 	group = ntimes // nbins
+	
+	#print(group)
 	
 	da1E = np.zeros(nbins, dtype=np.double)
 	da2E = np.zeros(nbins, dtype=np.double)
 	da1W = np.zeros(nbins, dtype=np.double)
 	da2W = np.zeros(nbins, dtype=np.double)
-		
+	EW = np.zeros(nbins, dtype=np.double)
+	
 	theta,phi = Lambert_pix2ang(ndec,pixlist)
 	
-	cond1 = phi > 0
-	cond2 = phi < np.pi
-	eastpixels = pixlist[np.logical_and(cond1,cond2)] 
-	
-	cond1 = phi > np.pi
-	cond2 = phi < 2*np.pi
-	westpixels = pixlist[np.logical_and(cond1,cond2)] 
+	eastpixels = pixlist[phi < np.pi] 
+		
+	westpixels = pixlist[phi > np.pi] 
 	
 	totevents = 0.0
+	dalpha = 0.0
 	
 	for timeidx2 in range(0,ntimes) :
 		
 		timeidx = timeidx2//group
 		
 		totevents += sum(CRmap[timeidx2])
-		
+	
 		da1E[timeidx] += sum(np.sin(phi[eastpixels])*np.cos(theta[eastpixels])*CRmap[timeidx2][eastpixels]) 
 		da2E[timeidx] += sum(CRmap[timeidx2][eastpixels]) 
 			
@@ -138,7 +142,11 @@ def EWderivative_Lambert(ndec,nbins,CRmap) :
 		
 	temp = (da2E - da2W)/(da2E + da2W)	
 	total = sum(temp)/dalpha*(np.pi*2/nbins)
+	
+
 	EW = temp/dalpha
+	
+	total = sum(EW)*(np.pi*2/nbins)
 	
 	#normalize
 	bgr = sum(EW)/nbins
@@ -167,7 +175,7 @@ def EWdipole(nbins,EW,dEW,nmax=1) :
 			temp += a[2*(i-1)]*np.cos(i*(x-a[2*(i-1)+1]))
 		return temp
 	
-	hours = (0.5+np.arange(0,nbins))/nbins*2*np.pi
+	hours = np.arange(0,nbins)/nbins*2*np.pi
 	
 	x0 = 	np.zeros(2*nmax, dtype=np.double)
 	result = scipy.optimize.curve_fit(func, hours, EW, x0, dEW)

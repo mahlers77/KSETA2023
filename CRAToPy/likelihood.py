@@ -774,7 +774,7 @@ def extract_dipole(CRmap,fit,niteration,chi2flag=True) :
 	else :
 		return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase,dphase
 
-def extract_dipole_Lambert(CRmap,fit,niteration,chi2flag=True) :
+def extract_dipole_Lambert(CRmap,fit,niteration,chi2flag=True,verbose=False) :
 	
 	chi2list = []
 	
@@ -783,7 +783,8 @@ def extract_dipole_Lambert(CRmap,fit,niteration,chi2flag=True) :
 		delta0h, delta6h = fit.iterate_dipole(CRmap)
 		
 		temp = fit.chi2(CRmap)
-		print(2*iteration,temp)
+		if verbose :
+			print(2*iteration,temp)
 		
 		fit.iterate_N_and_A(CRmap)
 		
@@ -791,7 +792,8 @@ def extract_dipole_Lambert(CRmap,fit,niteration,chi2flag=True) :
 			#significancemap = significance(fit,CRmap) 
 	
 			temp = fit.chi2(CRmap)
-			print(2*iteration+1,temp)
+			if verbose :
+				print(2*iteration+1,temp)
 			chi2list.append([iteration,temp])
 			
 	Amp = np.sqrt(delta0h**2 + delta6h**2)	

@@ -106,8 +106,10 @@ def mockdata(nside,ntimes,thetamax,latitude,deltaI,A,N) :
 			
 	for timeidx in range(0,NTIMES) :
 			
-		hour = (0.5+timeidx)/ntimes*np.pi*2
+		#hour = (0.5+timeidx)/ntimes*np.pi*2
 		
+		#randomize arrival time within time window bin
+		hour = (np.random.rand(len(pixlist))+timeidx)/ntimes*np.pi*2
 		vpx,vpy,vpz = LC2EQ_vector(vx,vy,vz,hour,latitude)
 		
 		pixlistEQ = H.vec2pix(nside,vpx,vpy,vpz) 
