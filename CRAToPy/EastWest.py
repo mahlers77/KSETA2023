@@ -7,6 +7,7 @@ from CRAToPy.coordinates import Lambert_pix2ang
 __all__ = [
 	"EWderivative",
 	"EWdipole",
+	"EWdipoleXY",
 	"EWderivative_Lambert",
 ]
 
@@ -97,7 +98,7 @@ def EWderivative_Lambert(ndec,nbins,CRmap) :
 	#	exit(3)
 	
 	if not (ntimes == nbins):
-		print("Error: No rebinning implmented yet. Use bins = 2*ndec.")
+		print("Error: No rebinning implemented yet. Use bins = 2*ndec.")
 		exit(3)
 		
 	group = ntimes // nbins
@@ -190,3 +191,33 @@ def EWdipole(nbins,EW,dEW,nmax=1) :
 		phi = (phi + 180.0) % 360.0
 		
 	return Amp,dAmp,phi,dphi
+	
+def EWdipoleXY(nbins,EW,dEW,nmax=1) :
+	
+	def func(x,*a):
+		temp =  0.0 
+		for i in range(1,2) :
+			temp += - a[0]*np.sin(x)
+			temp +=   a[1]*np.cos(x)
+		return temp
+	
+	hours = np.arange(0,nbins)/nbins*2*np.pi
+	
+	x0 = 	np.zeros(2*nmax, dtype=np.double)
+	result = scipy.optimize.curve_fit(func, hours, EW, x0, dEW)
+	
+	delta0h = result[0][0]
+	delta6h = result[0][1]
+
+	Amp = np.sqrt(delta0h**2 + delta6h**2)	
+	
+	phase = (np.arctan2(delta6h,delta0h)/np.pi*180.0 + 360.0) % 360.0
+		
+	ddelta0h = np.sqrt(result[1][0][0])
+	ddelta6h = np.sqrt(result[1][1][1])
+	
+	dAmp= np.sqrt(delta0h**2/Amp**2*ddelta0h**2 + delta6h**2/Amp**2*ddelta6h**2)
+
+	dphase = np.sqrt(ddelta0h**2*delta6h**2 + ddelta6h**2*delta0h**2)/Amp**2/np.pi*180.
+
+	return delta0h,ddelta0h,delta6h,ddelta6h,Amp,dAmp,phase,dphase	
